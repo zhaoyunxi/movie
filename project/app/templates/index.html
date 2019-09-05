@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<style type="text/css">
+		html,body{
+			width:100%;
+			height:1000px;
+		}
+	</style>
+</head>
+<body marginwidth="0px" marginheight="0px">
+	<table width="100%" height="100%">
+			<tr width="100%" height="20%">
+                <form action="{{ url_for('web.search') }}" method="get" >
+                    <h1>请输入关键字</h1><input width="100%" height="100%" type="text" name="name"/><input type="submit" value="确定">
+                </form>
+            </tr>
+			<tr width="100%" height="80%">
+                <caption>精彩电影推荐</caption>
+				<td>
+					<table width="100%" height="100%">
+                        {% for i in range(5) %}
+                            <tr>
+                                {% for movie in movies[i*4:i*4+4] %}
+                                    <td>
+                                        <a href="{{ url_for('web.movie_detail',name=movie.name) }}">
+                                            <img src="{{ movie.pic }}" width="100%" height="70%">
+                                        </a>
+                                        <a href="{{ url_for('web.movie_detail',name=movie.name) }}">{{ movie.name }}</a>
+                                        <p>{{ movie.kind }}-{{ movie.time }}</p>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+					</table>
+				</td>
+			</tr>
+	</table>
+</body>
+</html>

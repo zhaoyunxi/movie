@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<style type="text/css">
+		html,body{
+			width:100%;
+			height:1000px;
+		}
+	</style>
+</head>
+<body marginwidth="0px" marginheight="0px">
+	<table width="100%" height="100%">
+			<tr width="100%" height="20%">
+                <form action="{{ url_for('web.search') }}" method="get" >
+                    <h1>请输入关键字</h1><input width="100%" height="100%" type="text" name="name"/><input type="submit" value="确定">
+                </form>
+            </tr>
+			<tr width="100%" height="80%">
+                {% if data['total'] == 0 %}
+                    <td><h1>该关键词，在本站不存在，请重新输入</h1></td>
+                {% else %}
+                    <td>
+                        <ul>
+                            {% for movie in data['movies'] %}
+                                <li>
+                                    <a href="{{ url_for('web.movie_detail',name=movie.name) }}">
+                                        <img src="{{ movie.pic }}" width="60px" height="60px">
+                                    </a>
+                                    <a href="{{ url_for('web.movie_detail',name=movie.name) }}">{{ movie.name }}</a>
+                                    <p>{{ movie.kind }}-{{ movie.time }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                {% endif %}
+			</tr>
+	</table>
+</body>
+</html>
